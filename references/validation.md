@@ -10,6 +10,8 @@ The original 11 cases remain unchanged. The terminal-adapter increment can be ch
 
 The package-layout increment reuses three existing helper cases through `python3 -B -m unittest discover -s tests -p test_package_layout.py -v`. They check adjacent-helper identity, standard/app layouts and resource-helper precedence using temporary files only. This candidate preparation does not rerun the existing observer or terminal suites, and claims no new remote CI result.
 
+The explicit-doctor delta is checked separately with `python3 -B -m unittest discover -s tests -p test_doctor_layout.py -v`. All configuration, package and app files are temporary fixtures. Every native subprocess is intercepted and every active-PID observation is forbidden in these fixtures. The checks cover explicit paths, optional cache/report writes, startup behavior, signature/team/file-identity failures and helper mismatch; they are not real codesign or active-client observations.
+
 The fixtures create a temporary, canonical home with synthetic session IDs and history headers. Every observer call passes that temporary home explicitly. Two short-lived fixture children hold exclusive locks on those temporary files to verify the `IN_USE` and coordination-busy results. Each observation checks `recovery_authorized=false`, zero reported writes/launches, and unchanged fixture paths/content. The children terminate when the fixture closes its input; they are not agents or clients.
 
 The cases also cover absent/unheld writers, wrong and incomplete headers, symlink history/locks, unsafe lock permissions, a history outside the supplied home, and a valid historical hardlink. These are API contract tests, not observations of a real Codex session or a native-release compatibility claim.
@@ -25,3 +27,5 @@ For commit [48770554](https://github.com/lzhs1995/runtime-recovery-kit/commit/48
 其餘案例涵蓋無寫入鎖、未持有的既有鎖、錯誤/不完整標頭、symlink、不安全權限、home 外 history 及合法歷史 hardlink。這是 API 合成測試，沒有讀真實 `CODEX_HOME`、history、鎖或應用狀態。
 
 終端測試只將輸出導入管道：載入函式不應輸出；呼叫後核對完整控制碼。沒有重設真實終端、啟動會話、請求模型或安裝客戶端。固定提交 [48770554](https://github.com/lzhs1995/runtime-recovery-kit/commit/4877055432138e0b38431545768c947a4e579afc) 的 [GitHub Actions 執行 42813115561](https://github.com/lzhs1995/runtime-recovery-kit/actions/runs/42813115561) 已完成 Linux／macOS × Python 3.11／3.14 四組工作，全部成功。此結果僅涵蓋上述合成案例，不代表真實終端恢復、客戶端載入或原生版本相容性已驗收。
+
+The configured dispatcher adds seven synthetic cases, runnable separately with `python3 -B -m unittest discover -s tests -p test_agent_dispatch.py -v`. They use only a temporary fake Python executable to check exact argv, unchanged PID after exec, exit statuses, explicit aliases, inherited or overridden markers, and rejected configuration/keys. No real model, agent CLI, session, TTY or endpoint is used. These cases do not establish external adapter availability.

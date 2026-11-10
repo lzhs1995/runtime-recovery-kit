@@ -31,6 +31,8 @@ For the manual command and an optional Zsh prompt integration, read [terminal in
 
 The [package helper layout library](references/package-layout.md) checks that the helper selected from explicit package and entry paths is the same file as the package helper. This is one extracted client-management function; it does not verify signatures or provide the full client updater.
 
+The [doctor with explicit layout](references/doctor-layout.md) checks supplied configuration, package-helper paths and macOS signatures. It has no implicit installation paths; cache and report files are written only when their paths are selected. `--startup` retains the original nonblocking, potentially pending signature result.
+
 ## Diagnose and verify
 
 Read [recovery layers](references/recovery-layers.md) for the shortest check at each layer, and [source scope](references/source-scope.md) for included and deferred modules. Preserve existing task authorization and the original controller, session, attempt and result. Unknown results need reconciliation before retrying.
@@ -44,3 +46,7 @@ The original function and observer remain byte-for-byte unchanged. Their 11 synt
 The [GitHub Actions workflow](https://github.com/lzhs1995/runtime-recovery-kit/actions/workflows/checks.yml) runs the fixture suite on Linux/macOS with Python 3.11/3.14. Follow the workflow link for the actual results of each commit.
 
 No universal agent or native-platform support is claimed. The original modules had no license declaration; this edition adds no new license and redistributes no third-party binary.
+
+## Configured adapter dispatch
+
+The optional [adapter dispatcher](references/agent-dispatch.md) replaces itself with an argv selected from your explicit private configuration. It forwards arguments unchanged and preserves an inherited `HERDR_AGENT` unless an exact label is configured. It launches the configured program; no agent CLI, model, profile or session is bundled.

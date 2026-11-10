@@ -31,6 +31,8 @@ fi
 
 [套件 helper 布局函式](references/package-layout.md)接收明確的套件與 entry 路徑，核對選中的 helper 是否與套件 helper 為同一檔案。這只是 client 管理工具的一個抽取函式，不驗簽，也不提供完整 updater。
 
+[明確布局 doctor](references/doctor-layout.md)檢查提供的設定、套件 helper 與 macOS 簽名；不預設安裝位置，只有選定路徑才寫快取或報告。`--startup` 保留原非阻斷且可能仍待完整驗簽的結果。
+
 ## 定位與核驗
 
 依[故障層次](references/recovery-layers.md)選擇最小檢查；[來源與範圍](references/source-scope.md)列明已收錄與延後的模組。沿用既有任務授權，保留原控制器、會話、原次與結果；未知結果先核對再決定是否重試。
@@ -44,3 +46,7 @@ fi
 [GitHub Actions 工作流程](https://github.com/lzhs1995/runtime-recovery-kit/actions/workflows/checks.yml)在 Linux／macOS 及 Python 3.11／3.14 執行合成測試。請由工作流程連結查看每筆提交的實際結果。
 
 不宣稱所有 agent 或原生平台都已實測。原模組沒有授權宣告；本工具集不新增授權條款，也不散布第三方二進位。
+
+## 明確設定的適配器派發
+
+可選的[適配器派發器](references/agent-dispatch.md)以明確私有設定選擇 argv，原樣轉交參數，再以 `exec` 取代自身。只有設定精確標記才改寫 `HERDR_AGENT`，否則保留繼承值。它會啟動指定程式，不包含 agent CLI、模型、profile 或會話。

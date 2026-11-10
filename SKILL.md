@@ -21,8 +21,12 @@ The optional [writer observer](references/writer-observation.md) is a library, n
 
 For an explicit package-helper layout check, use [the small layout library](references/package-layout.md). The caller supplies already checked package and entry paths. A matching helper path does not prove package signatures or actual client loading.
 
-For application or session recovery, use the installed tool's version-specific interface and the original task bindings. This package does not include an updater, session launcher, native identity proof or a generic permission grant. Existing authorization persists; a genuinely new action outside that scope needs its own decision.
+For the optional [explicit-layout doctor](references/doctor-layout.md), supply every configuration, CLI, package and application-candidate path. Cache and report paths are optional writes, not defaults. Keep real output private; startup exit zero and `PASS_CONFIG_ONLY` do not establish native runtime readiness.
+
+For application or session recovery, use the installed tool's version-specific interface and the original task bindings. This package does not include an updater, automatic session recovery, native identity proof or a generic permission grant. Existing authorization persists; a genuinely new action outside that scope needs its own decision.
 
 Keep public examples synthetic. Reports containing paths, arguments, session identifiers or account settings remain private unless explicitly prepared for publication. Use [source scope](references/source-scope.md) when extending this package.
 
 For source maintenance, run the [synthetic fixture suite](references/validation.md). It exercises temporary files and captured output only; these results do not grant a session resume or establish native client compatibility.
+
+For an authorized adapter launch, use the optional [configured dispatcher](references/agent-dispatch.md) with an explicit private argv map. Preserve the original task and session arguments. It executes a program; a configured `HERDR_AGENT` label is not identity evidence, and no label means inherit the existing environment.
