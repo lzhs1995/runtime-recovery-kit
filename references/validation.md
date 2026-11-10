@@ -8,6 +8,8 @@ python3 -B -m unittest discover -s tests -v
 
 The original 11 cases remain unchanged. The terminal-adapter increment can be checked separately with `python3 -B -m unittest discover -s tests -p test_terminal_adapters.py -v`; its preparation does not rerun the unchanged observer suite or claim a new remote CI run.
 
+The package-layout increment reuses three existing helper cases through `python3 -B -m unittest discover -s tests -p test_package_layout.py -v`. They check adjacent-helper identity, standard/app layouts and resource-helper precedence using temporary files only. This candidate preparation does not rerun the existing observer or terminal suites, and claims no new remote CI result.
+
 The fixtures create a temporary, canonical home with synthetic session IDs and history headers. Every observer call passes that temporary home explicitly. Two short-lived fixture children hold exclusive locks on those temporary files to verify the `IN_USE` and coordination-busy results. Each observation checks `recovery_authorized=false`, zero reported writes/launches, and unchanged fixture paths/content. The children terminate when the fixture closes its input; they are not agents or clients.
 
 The cases also cover absent/unheld writers, wrong and incomplete headers, symlink history/locks, unsafe lock permissions, a history outside the supplied home, and a valid historical hardlink. These are API contract tests, not observations of a real Codex session or a native-release compatibility claim.

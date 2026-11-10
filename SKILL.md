@@ -19,6 +19,8 @@ The [manual command and optional Zsh prompt hook](references/terminal-integratio
 
 The optional [writer observer](references/writer-observation.md) is a library, not a session launcher. Use an explicit private target and Codex home only when the active task calls for this inspection and its native lock contract matches. It briefly takes nonblocking shared advisory locks; it never creates/deletes lock files. Keep returned identifiers and paths private. An idle result grants no recovery authority.
 
+For an explicit package-helper layout check, use [the small layout library](references/package-layout.md). The caller supplies already checked package and entry paths. A matching helper path does not prove package signatures or actual client loading.
+
 For application or session recovery, use the installed tool's version-specific interface and the original task bindings. This package does not include an updater, session launcher, native identity proof or a generic permission grant. Existing authorization persists; a genuinely new action outside that scope needs its own decision.
 
 Keep public examples synthetic. Reports containing paths, arguments, session identifiers or account settings remain private unless explicitly prepared for publication. Use [source scope](references/source-scope.md) when extending this package.

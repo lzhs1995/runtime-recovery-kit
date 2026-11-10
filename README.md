@@ -29,6 +29,8 @@ Sourcing the file only defines the function. Calling it writes escape sequences 
 
 For the manual command and an optional Zsh prompt integration, read [terminal integration](references/terminal-integration.md). Both adapters load the included function from their own directory; no machine-specific installation path is required. The Zsh hook retains its original interactive TTY and `CMUX_SURFACE_ID` conditions. Its presence marker is not identity authentication.
 
+The [package helper layout library](references/package-layout.md) checks that the helper selected from explicit package and entry paths is the same file as the package helper. This is one extracted client-management function; it does not verify signatures or provide the full client updater.
+
 ## Diagnose and verify
 
 Read [recovery layers](references/recovery-layers.md) for the shortest check at each layer, and [source scope](references/source-scope.md) for included and deferred modules. Preserve existing task authorization and the original controller, session, attempt and result. Unknown results need reconciliation before retrying.

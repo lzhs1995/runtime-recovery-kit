@@ -29,6 +29,8 @@ fi
 
 手動命令及可選的 Zsh 提示符整合見[終端接線](references/terminal-integration.md)。兩個適配器從自己的目錄載入原函式，不需要固定機器路徑。Zsh hook 保留原本的互動 TTY 與 `CMUX_SURFACE_ID` 條件；環境標記不代表身份認證。
 
+[套件 helper 布局函式](references/package-layout.md)接收明確的套件與 entry 路徑，核對選中的 helper 是否與套件 helper 為同一檔案。這只是 client 管理工具的一個抽取函式，不驗簽，也不提供完整 updater。
+
 ## 定位與核驗
 
 依[故障層次](references/recovery-layers.md)選擇最小檢查；[來源與範圍](references/source-scope.md)列明已收錄與延後的模組。沿用既有任務授權，保留原控制器、會話、原次與結果；未知結果先核對再決定是否重試。
