@@ -1,0 +1,9 @@
+.env
+.env.*
+private/
+reports/
+.state/
+targets.local.json
+*.log
+__pycache__/
+*.pyc
