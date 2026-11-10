@@ -6,4 +6,4 @@ Use the same instructions from Codex, Claude Code, Gemini CLI or another Markdow
 
 For repository changes, preserve source provenance, use synthetic examples and report the precise checks performed. Do not add private configuration, session records, runtime receipts or third-party binaries.
 
-Preserve both included script APIs. Use the [synthetic fixture suite](references/validation.md) for repository changes; never substitute a live home, session history, lock or TTY for a fixture.
+Preserve the two original library APIs and the terminal adapters' TTY, prompt and exit-status boundaries. Use the [synthetic fixture suite](references/validation.md) for repository changes; never substitute a live home, session history, lock or TTY for a fixture. The optional [terminal integration](references/terminal-integration.md) does not install itself or authenticate an agent.

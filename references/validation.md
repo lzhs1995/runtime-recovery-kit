@@ -6,11 +6,15 @@ Run from the repository root with POSIX Python:
 python3 -B -m unittest discover -s tests -v
 ```
 
+The original 11 cases remain unchanged. The terminal-adapter increment can be checked separately with `python3 -B -m unittest discover -s tests -p test_terminal_adapters.py -v`; its preparation does not rerun the unchanged observer suite or claim a new remote CI run.
+
 The fixtures create a temporary, canonical home with synthetic session IDs and history headers. Every observer call passes that temporary home explicitly. Two short-lived fixture children hold exclusive locks on those temporary files to verify the `IN_USE` and coordination-busy results. Each observation checks `recovery_authorized=false`, zero reported writes/launches, and unchanged fixture paths/content. The children terminate when the fixture closes its input; they are not agents or clients.
 
 The cases also cover absent/unheld writers, wrong and incomplete headers, symlink history/locks, unsafe lock permissions, a history outside the supplied home, and a valid historical hardlink. These are API contract tests, not observations of a real Codex session or a native-release compatibility claim.
 
 The Bash and Zsh fixtures use piped stdout and nonterminal stdin. Sourcing must emit nothing; invoking the function must emit exactly the documented reset sequences into the pipe. Captured control bytes never go to a real TTY. The suite uses whichever of `/bin/bash` and `/bin/zsh` exists; the local candidate review records which shells were available.
+
+The adapter tests copy only the three terminal files to a temporary directory containing spaces. Bash tests cover the check/help and non-TTY branches; Zsh tests use a temporary `ZDOTDIR`, disable startup rc files, and verify relative loading, hook deduplication, the previous exit status and silence in an interactive shell whose descriptors are pipes. No fixture uses a real TTY or runs the `stty sane` branch. That branch is retained from the original command and is explicitly outside this fixture execution.
 
 For commit [48770554](https://github.com/lzhs1995/runtime-recovery-kit/commit/4877055432138e0b38431545768c947a4e579afc), [GitHub Actions run 42813115561](https://github.com/lzhs1995/runtime-recovery-kit/actions/runs/42813115561) completed successfully in all four Linux/macOS × Python 3.11/3.14 jobs. These results cover the synthetic fixtures above; they do not establish live terminal recovery, client loading or native-release compatibility.
 

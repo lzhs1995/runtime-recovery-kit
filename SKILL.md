@@ -15,6 +15,8 @@ Read [the recovery layers](references/recovery-layers.md) and select the smalles
 
 For terminal input-protocol residue, [README.md](README.md#terminal-input-mode-recovery) gives the included Bash/Zsh function. Invoke it only when the affected program has returned control to an interactive shell. Never use a repeating reset, screen clear, input flush or speculative Enter as recovery.
 
+The [manual command and optional Zsh prompt hook](references/terminal-integration.md) use that same function. Keep their existing TTY and prompt conditions. Do not install a hook into a user's shell profile as an incidental source-code check.
+
 The optional [writer observer](references/writer-observation.md) is a library, not a session launcher. Use an explicit private target and Codex home only when the active task calls for this inspection and its native lock contract matches. It briefly takes nonblocking shared advisory locks; it never creates/deletes lock files. Keep returned identifiers and paths private. An idle result grants no recovery authority.
 
 For application or session recovery, use the installed tool's version-specific interface and the original task bindings. This package does not include an updater, session launcher, native identity proof or a generic permission grant. Existing authorization persists; a genuinely new action outside that scope needs its own decision.

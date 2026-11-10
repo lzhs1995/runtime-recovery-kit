@@ -6,13 +6,13 @@
 
 Practical recovery notes for agent startup, tool discovery, terminal input modes and interrupted tasks. Diagnose the failed layer, retain the original task and verify the actual operation after a repair.
 
-This kit contains portable Markdown, one Bash/Zsh terminal function and an optional Codex writer-lock observation module. It does not bundle Codex, Herdr, a model provider, client configuration or session records. Full package updating, automatic session recovery and the DSH bridge are outside this edition.
+This kit contains portable Markdown, a Bash/Zsh terminal function, a manual terminal command, an optional Zsh prompt hook and a Codex writer-lock observation module. It does not bundle Codex, Herdr, a model provider, client configuration or session records. Full package updating, automatic session recovery and the DSH bridge are outside this edition.
 
 ## Start
 
 Get the complete repository from [lzhs1995/runtime-recovery-kit](https://github.com/lzhs1995/runtime-recovery-kit). Ask your agent to read `AGENTS.md` and `SKILL.md`; they link the same workflow for Codex, Claude Code, Gemini CLI and other Markdown-capable agents. Automatic discovery differs by client. There is no installer.
 
-The documents are platform independent. The terminal function requires Bash or Zsh and a compatible terminal emulator. The optional observer requires POSIX Python and a Codex version with the matching native lock contract; see [writer observation](references/writer-observation.md). Native Windows is outside both scripts' scope. macOS signing and native applications require separate tools.
+The documents are platform independent. The terminal function requires Bash or Zsh and a compatible terminal emulator; the command uses Bash and the optional prompt hook uses Zsh. The observer requires POSIX Python and a Codex version with the matching native lock contract; see [writer observation](references/writer-observation.md). Native Windows is outside these scripts' scope. macOS signing and native applications require separate tools.
 
 ## Terminal input-mode recovery
 
@@ -27,6 +27,8 @@ fi
 
 Sourcing the file only defines the function. Calling it writes escape sequences to reset mouse, focus, bracketed-paste and keyboard input modes and show the cursor. It does not erase the screen, history or input buffer. Do not run it repeatedly inside a live TUI or inject it into another agent's input. It does not reset all terminal attributes or repair a crashed application.
 
+For the manual command and an optional Zsh prompt integration, read [terminal integration](references/terminal-integration.md). Both adapters load the included function from their own directory; no machine-specific installation path is required. The Zsh hook retains its original interactive TTY and `CMUX_SURFACE_ID` conditions. Its presence marker is not identity authentication.
+
 ## Diagnose and verify
 
 Read [recovery layers](references/recovery-layers.md) for the shortest check at each layer, and [source scope](references/source-scope.md) for included and deferred modules. Preserve existing task authorization and the original controller, session, attempt and result. Unknown results need reconciliation before retrying.
@@ -35,7 +37,7 @@ A configuration file parsing, a tool being installed, a client loading it and a 
 
 ## Verification
 
-Both source files are preserved byte-for-byte from local maintenance sources. **11 synthetic tests passed on macOS with Python 3.14**, including separate fixture-process locks and Bash/Zsh output captured in pipes. No live history or locks were read, no real terminal was reset, and no client, application or model was started. Run `python3 -B -m unittest discover -s tests -v` from the root; see [the fixture boundaries](references/validation.md).
+The original function and observer remain byte-for-byte unchanged. Their 11 synthetic tests and fixed-commit CI evidence remain the baseline. Two terminal adapters change only the function source path to a package-relative path. Separate adapter tests cover relocated directories, non-TTY silence, command errors, prompt-hook deduplication and exit-status preservation; see [the fixture boundaries](references/validation.md). These tests use pipes and temporary directories, with no live history, real terminal reset, client, application or model. Run `python3 -B -m unittest discover -s tests -v` from the root.
 
 The [GitHub Actions workflow](https://github.com/lzhs1995/runtime-recovery-kit/actions/workflows/checks.yml) runs the fixture suite on Linux/macOS with Python 3.11/3.14. Follow the workflow link for the actual results of each commit.
 

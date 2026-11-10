@@ -1,0 +1,18 @@
+#!/bin/bash
+# 修复当前终端的报码残留；不启动 agent、不接触文稿。
+set -euo pipefail
+case "${1:---before-launch}" in
+  --check)
+    printf 'Terminal recovery: mouse/focus/bracketed-paste/keyboard modes only; no clear, no reset, no input flush.\n'
+    exit 0
+    ;;
+  --before-launch|--shell) ;;
+  *) printf 'Usage: codex-terminal-recover [--before-launch|--shell|--check]\n' >&2; exit 64 ;;
+esac
+[[ -t 0 && -t 1 ]] || exit 0
+codex_recovery_script_dir="$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "$codex_recovery_script_dir/terminal_modes.sh"
+if [[ "${1:---before-launch}" == "--shell" ]]; then
+  /bin/stty sane
+fi
+codex_toolchain_reset_terminal_modes
