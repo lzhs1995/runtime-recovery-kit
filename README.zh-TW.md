@@ -6,7 +6,7 @@
 
 這份指南整理 agent 啟動、工具探索、終端輸入模式及任務中斷的恢復方法。先定位失敗層、保留原任務，再以實際操作核驗修復效果。
 
-本工具集包含通用 Markdown 文件、Bash／Zsh 終端函式、手動終端命令、可選的 Zsh 提示符 hook，以及 Codex 寫入鎖觀測模組，不包含 Codex、Herdr、模型服務、客戶端設定或會話記錄。完整套件更新、自動會話恢復與 DSH 橋接不在這一版內。
+本工具集包含通用 Markdown 文件、終端恢復函式與適配器、Codex 寫入鎖觀測、套件診斷、明確布局的客戶端管理器、啟動器、設定式派發器及 DSH 終端適配器。不包含 Codex、Herdr、DSH SDK、模型服務、私有設定或會話記錄；自動會話恢復不在這一版內。
 
 ## 開始使用
 
@@ -33,6 +33,8 @@ fi
 
 [明確布局 doctor](references/doctor-layout.md)檢查提供的設定、套件 helper 與 macOS 簽名；不預設安裝位置，只有選定路徑才寫快取或報告。`--startup` 保留原非阻斷且可能仍待完整驗簽的結果。
 
+可選的 [Codex 客戶端管理器](references/codex-client.md)分開設定驗證、原生狀態檢查、動作規劃及明確套用。它保留原 signed-package 更新交易，只支援對應的 macOS Apple Silicon 套件。所有安裝路徑及剩餘空間門檻由私有布局提供；套用更新會下載、切換別名，並可能移除精確的上一個自有套件。儲存 plan 本身不做這些檢查或變更。
+
 ## 定位與核驗
 
 依[故障層次](references/recovery-layers.md)選擇最小檢查；[來源與範圍](references/source-scope.md)列明已收錄與延後的模組。沿用既有任務授權，保留原控制器、會話、原次與結果；未知結果先核對再決定是否重試。
@@ -50,3 +52,11 @@ fi
 ## 明確設定的適配器派發
 
 可選的[適配器派發器](references/agent-dispatch.md)以明確私有設定選擇 argv，原樣轉交參數，再以 `exec` 取代自身。只有設定精確標記才改寫 `HERDR_AGENT`，否則保留繼承值。它會啟動指定程式，不包含 agent CLI、模型、profile 或會話。
+
+## 明確布局的啟動器
+
+可選的[啟動器](references/toolchain-launch.md)執行指定 doctor，再以 `exec` 取代自身，保留原 CLI 參數與 PID。所有路徑由私有布局檔明確提供；doctor 會寫指定報告，只有 stdin、stdout 同時為 TTY 才呼叫終端恢復。啟動檢查失敗仍允許 CLI 繼續，不代表修復成功。套件不包含 CLI 二進位、會話選擇或模型預設。
+
+## DSH 終端適配器
+
+可選的 [DSH 適配器](references/dsh-adapter.md)啟動明確設定的外部 DSH binary 與 profile，保留原同 session 事件、收尾及只核名稱的握手；Herdr 回報明確停用或提供私有 env 視圖。npm `0.2.1-rc.2` 與 wire `0.0.1` 是不同的靜態來源值，不是真實 initialize 回執。套件不附 SDK、模型／provider 設定或會話。新增 Node 合成測試由 `node --test tests/test_herdr_dsh.mjs` 單獨執行。

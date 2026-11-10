@@ -29,3 +29,21 @@ For commit [48770554](https://github.com/lzhs1995/runtime-recovery-kit/commit/48
 終端測試只將輸出導入管道：載入函式不應輸出；呼叫後核對完整控制碼。沒有重設真實終端、啟動會話、請求模型或安裝客戶端。固定提交 [48770554](https://github.com/lzhs1995/runtime-recovery-kit/commit/4877055432138e0b38431545768c947a4e579afc) 的 [GitHub Actions 執行 42813115561](https://github.com/lzhs1995/runtime-recovery-kit/actions/runs/42813115561) 已完成 Linux／macOS × Python 3.11／3.14 四組工作，全部成功。此結果僅涵蓋上述合成案例，不代表真實終端恢復、客戶端載入或原生版本相容性已驗收。
 
 The configured dispatcher adds seven synthetic cases, runnable separately with `python3 -B -m unittest discover -s tests -p test_agent_dispatch.py -v`. They use only a temporary fake Python executable to check exact argv, unchanged PID after exec, exit statuses, explicit aliases, inherited or overridden markers, and rejected configuration/keys. No real model, agent CLI, session, TTY or endpoint is used. These cases do not establish external adapter availability.
+
+The client-manager increment retains 22 original transaction/status cases in `test_codex_client.py`, `test_codex_client_status.py` and `test_codex_client_publication.py`, and adds seven explicit-layout/plan cases in `test_codex_client_layout.py`. The three original helper-only cases stay in `test_package_layout.py`; they are not copied into the client suite. Run the client increment with `python3 -B -m unittest discover -s tests -p 'test_codex_client*.py' -v`.
+
+These fixtures use temporary layouts, synthetic package files and intercepted subprocess/process observations. They preserve archive traversal/link rejection, helper identity, active-client refusal, lock serialization, alias readback/rollback, exact old-package retirement and uncertain final-receipt behavior. Added cases distinguish configuration/planning from execution, bind the actual layout bytes, reject changed plans and compare the configured capacity threshold before download. None runs real status, codesign, package downloads, installed aliases, app access or a live update. The local first pass recorded 32 successes before removing three duplicate helper methods; retained test/setup ASTs are unchanged. A combined fixed-commit suite and any live maintenance results require their own evidence.
+
+The explicit-layout launcher adds nine synthetic cases, runnable with `python3 -B -m unittest discover -s tests -p test_toolchain_launch.py -v`. Temporary fake doctor/helper/CLI programs verify full argv and PID replacement, inherited stdin/environment/cwd, doctor-only report/status, dual-TTY ordering, nonblocking failures and rejected layouts. Descriptors remain pipes even when the TTY predicate is mocked. No live CLI, model, session, terminal reset, signing tool or application is used; these results do not prove actual recovery.
+
+明確布局啟動器的九項合成案例只執行暫存假 doctor／helper／CLI，核完整參數、PID、stdin／環境／cwd、doctor-only 報告與狀態、雙 TTY 順序及失敗後繼續。即使 mock TTY 判斷，所有描述符仍為管道；沒有真實 CLI、模型、會話、終端重設、簽名工具或應用操作。
+
+The DSH adapter adds twelve **new** Node synthetic cases, run separately with `node --test tests/test_herdr_dsh.mjs` on Node 24. They use memory streams, fake child objects, mock sockets and one temporary fake SDK executable with piped input. They cover RPC parsing/limits/failures, same-session state, ready/blocked/release behavior, reporter serialization and weak completion, explicit layout/home/cwd, name-only initialize, prompt/wait and single-child shutdown. No original DSH test reuse, real SDK/profile/model or actual Herdr connection is claimed.
+
+DSH 候選的十二項為本次新增測試，使用內存流、假 child、mock socket 與暫存假 SDK。首輪 11 項通過，最後一項先修測試的過早 EOF，再修 macOS canonical cwd 預期，定向通過；兩次失敗保留，產品原碼未因測試變更。後續組合 CI 應執行完整 Node 測試及原 Python 套件，不能把候選準備當成真實 runtime 或 CI 已通過。
+
+## Combined suite
+
+The combined source contains 75 Python cases and 12 Node cases. Run `python3 -B -m unittest discover -s tests -v` and `node --test tests/test_herdr_dsh.mjs`. CI keeps the four Linux/macOS × Python 3.11/3.14 jobs and adds two separate Linux/macOS Node 24 jobs. Consult the workflow result for the exact commit; fixture coverage does not establish native client, signing, provider or Herdr delivery success.
+
+組合源碼共 75 項 Python 與 12 項 Node 案例。CI 保留 Linux／macOS × Python 3.11／3.14 四組，另設 Linux／macOS 的 Node 24 兩組。是否通過以對應提交的實際工作流程回執為準；合成案例不代表現役客戶端、簽名、模型服務或 Herdr 送達已驗收。
